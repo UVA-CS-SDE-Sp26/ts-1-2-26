@@ -1,0 +1,41 @@
+program control testing & design
+
+program must:
+- interpret command line
+- request file lists and file contents from FileHandler
+- pass file contents to CipherService
+- display numbered file lists
+- display file contents or error messages
+
+Classes:
+ProgramControl
+
+Methods:
+- run(String[] args)
+- displayFileList()
+- displayFileContents(String fileId, String optionalKey)
+
+
+Test Cases:
+1. run() with no arguments:
+   - Should request file list from FileHandler
+   - Should display numbered list of files & exit
+
+2. run() with one argument (valid file number):
+   - Should request the corresponding file contents & display to console
+
+3. run() with one argument (invalid file number):
+   - Should display an error message & exit
+
+4. run() with two arguments (file number + cipher key):
+   - Should request file contents from FileHandler
+   - Should pass contents to CipherService with the provided key
+   - Should display deciphered text
+
+5. run() with missing file:
+   - FileHandler throws or returns error.
+   - Should catch and print error message.
+
+6. run() with cipher failure:
+   - CipherService throws validation error.
+   - ProgramController prints error and exits
