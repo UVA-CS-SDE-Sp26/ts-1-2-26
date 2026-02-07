@@ -1,0 +1,19 @@
+Cipher Tests
+
+1. When a valid cipher key file is present, the cipher should load the key without errors.
+
+2. When the cipher key file is missing, the cipher should report an error instead of crashing.
+
+3. When the key file does not contain exactly two lines, the cipher should reject the key and report an error.
+
+4. When the key file contains duplicate letters, the cipher should detect the invalid key and report an error.
+
+5. When the input text contains only alphabetic characters, the cipher should correctly decipher all letters using the key.
+
+6. When the input text contains a mix of uppercase and lowercase letters, the cipher should preserve the original letter casing.
+
+7. When the input text contains non-alphabetic characters (such as spaces or punctuation), those characters should remain unchanged.
+
+8. When an alternate cipher key is provided and the key is valid, the cipher should use the alternate key instead of the default key.
+
+9. When an alternate cipher key is provided but is invalid, the cipher should report an error and not attempt to decipher the text.

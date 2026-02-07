@@ -1,0 +1,66 @@
+TopSecret documentation Cipher
+
+Purpose
+The Cipher component is responsible for converting ciphered text into readable text.
+It operates independently from the command line interface and file selection logic.
+
+Responsibilities
+- Load a cipher key from a key file
+- Validate the cipher key format
+- Decipher ciphered text using the key
+- Return readable text or report an error when deciphering fails
+
+Cipher key
+- Cipher keys are stored in the ciphers folder
+- The default cipher key file is named key.txt
+- An alternate cipher key file may be provided by ProgramControl
+
+Key format
+- The key file must contain exactly two lines
+- The first line represents the actual (plain) letters
+- The second line represents the cipher letters
+- Letters are mapped by their position in each line
+
+Example:
+Line 1: ABCDEF
+Line 2: QWERTY
+
+Meaning:
+Q → A
+W → B
+E → C
+R → D
+T → E
+Y → F
+
+Key validation rules
+- The key file must exist and be readable
+- The key file must contain exactly two lines
+- Both lines must have the same length
+- Only alphabetic characters are allowed
+- Duplicate letters are not allowed in either line
+
+Deciphering rules
+- Alphabetic characters are translated using the cipher key
+- Uppercase and lowercase letters are preserved
+- Non-alphabetic characters remain unchanged
+
+Classes
+CipherService (or Cipher)
+
+Methods
+- decipher(String cipherText)
+- decipher(String cipherText, String keyFile)
+
+Error handling
+- Invalid or missing key files cause an error to be reported
+- Invalid key formats cause an error to be reported
+- Error messages are handled by ProgramControl
+
+Testing
+Unit tests verify:
+- Correct loading and validation of cipher keys
+- Proper handling of invalid keys
+- Accurate deciphering of text
+- Preservation of letter case
+- Handling of non-letter characters
