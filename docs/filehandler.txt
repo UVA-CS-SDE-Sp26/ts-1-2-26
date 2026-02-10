@@ -1,0 +1,44 @@
+File handler docs and testing
+
+Purpose:
+Reads in the data files necessary for the program. Should handle all
+direct access to files.
+
+Overview:
+- Load in files from /data directory
+- Upon file request, return file contents as text
+
+Process:
+- Get index of file needed to read
+- Map index to file name
+- Look through /data for matches to file name
+- If found, return the contents as string
+- If not found, return error
+
+Classes:
+FileHandler
+
+Methods:
+String getFileContents(File file)
+File getFile(String filename)
+String indexToFile(int index)
+
+Tests:
+1. getFileContents() with invalid file
+    - Returns/throws error
+
+2. getFileContents() with valid file
+    - Returns file contents as String
+
+3. getFile() with invalid filename
+    - Returns/throws error
+
+4. getFile() with valid filename
+    - Returns correct file as File type
+
+5. indexToFile() with invalid index
+    - Returns index not found/file not found
+
+6. indexToFile() with valid index
+    - Returns filename corresponding to index
+
