@@ -4,38 +4,48 @@ program must:
 - interpret command line
 - request file lists and file contents from FileHandler
 - pass file contents to CipherService
-- display numbered file lists
-- display file contents or error messages
+- return numbered file lists as strings
+- return file contents or error messages as strings
+- only print output in run()
 
 Classes:
 ProgramControl
 
 Methods:
-- run(String[] args)
-- displayFileList()
-- displayFileContents(String fileId, String optionalKey)
+- run(String[] args): interprets arguments, calls appropriate method, prints result
+- displayFileList(): returns formatted numbered file list as a String
+- displayFileContents(String fileId, String optionalKey): returns file contents as a String, or an error message
 
 
 Test Cases:
-1. run() with no arguments:
+1. displayFileList() with files present:
    - Should request file list from FileHandler
-   - Should display numbered list of files & exit
+   - Should return formatted string with numbered list (e.g., "01 filea.txt")
 
-2. run() with one argument (valid file number):
-   - Should request the corresponding file contents & display to console
+2. displayFileList() with empty folder:
+   - Should return an empty string
 
-3. run() with one argument (invalid file number):
-   - Should display an error message & exit
+3. displayFileContents() with valid file number:
+   - Should request the corresponding file from FileHandler
+   - Should pass contents to CipherService with default key
+   - Should return deciphered text
 
-4. run() with two arguments (file number + cipher key):
+4. displayFileContents() with invalid file number:
+   - Should return an error message
+   - Should never call FileHandler.readFile()
+
+5. displayFileContents() with non-numeric argument:
+   - Should return an error message
+
+6. displayFileContents() with file number and custom cipher key:
    - Should request file contents from FileHandler
    - Should pass contents to CipherService with the provided key
-   - Should display deciphered text
+   - Should return deciphered text
 
-5. run() with missing file:
-   - FileHandler throws or returns error.
-   - Should catch and print error message.
+7. displayFileContents() with missing file:
+   - FileHandler throws or returns error
+   - Should catch and return error message
 
-6. run() with cipher failure:
-   - CipherService throws validation error.
-   - ProgramController prints error and exits
+8. displayFileContents() with cipher failure:
+   - CipherService throws validation error
+   - Should catch and return error message
