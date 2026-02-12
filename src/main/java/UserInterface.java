@@ -1,7 +1,15 @@
+import java.util.Scanner;
+
 public class UserInterface{
 
-//scanf
+//scanner
+    public Scanner scan;
 
+    public static void main(String[] args){
+        scan = new Scanner(System.in);
+        println("Welcome to the file portal. All file are encrypted.");
+        println("Type .help to see how to use the program.");
+    }
 
     public String startingInterface(){
         //tells users what the program is for, commands like .help
@@ -9,6 +17,7 @@ public class UserInterface{
 
     public String displayList(){
         // go through file list and print
+
     }
 
     public String errorOutput(){
