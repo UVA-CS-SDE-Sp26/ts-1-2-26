@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,7 +16,7 @@ class ProgramControlTest {
     private FileHandler mockFileHandler;
 
     @Mock
-    private CipherService mockCipherService;
+    private Cipher mockCipherService;
 
     private ProgramControl programControl;
 
@@ -27,7 +28,7 @@ class ProgramControlTest {
 
     // TEST 1: displayFileList() with files present
     @Test
-    void testDisplayFileList_formatsCorrectly() {
+    void testDisplayFileList_formatsCorrectly() throws IOException {
         when(mockFileHandler.listFiles())
                 .thenReturn(Arrays.asList("filea.txt", "fileb.txt", "filec.txt"));
 
@@ -41,7 +42,7 @@ class ProgramControlTest {
 
     // TEST 2: displayFileList() with empty folder
     @Test
-    void testDisplayFileList_emptyFolder() {
+    void testDisplayFileList_emptyFolder() throws IOException {
         when(mockFileHandler.listFiles())
                 .thenReturn(Arrays.asList());
 
@@ -52,7 +53,7 @@ class ProgramControlTest {
 
     // TEST 3: displayFileContents() with valid file number
     @Test
-    void testDisplayFileContents_validNumber() {
+    void testDisplayFileContents_validNumber() throws IOException {
         List<String> files = Arrays.asList("filea.txt", "fileb.txt");
         when(mockFileHandler.listFiles()).thenReturn(files);
         when(mockFileHandler.readFile("fileb.txt")).thenReturn("ciphered data");
@@ -68,7 +69,7 @@ class ProgramControlTest {
 
     // TEST 4: displayFileContents() with invalid file number
     @Test
-    void testDisplayFileContents_numberTooHigh() {
+    void testDisplayFileContents_numberTooHigh() throws IOException {
         when(mockFileHandler.listFiles())
                 .thenReturn(Arrays.asList("filea.txt"));
 
@@ -79,7 +80,7 @@ class ProgramControlTest {
     }
 
     @Test
-    void testDisplayFileContents_negativeNumber() {
+    void testDisplayFileContents_negativeNumber() throws IOException {
         when(mockFileHandler.listFiles())
                 .thenReturn(Arrays.asList("filea.txt"));
 
@@ -90,9 +91,9 @@ class ProgramControlTest {
     }
 
     @Test
-    void testDisplayFileContents_zero() {
+    void testDisplayFileContents_zero() throws IOException {
         when(mockFileHandler.listFiles())
-                .thenReturn(Arrays.asList("filea.txt"));
+                .thenReturn(List.of("filea.txt"));
 
         String result = programControl.displayFileContents("0", null);
 
@@ -102,9 +103,9 @@ class ProgramControlTest {
 
     // TEST 5: displayFileContents() with non-numeric argument
     @Test
-    void testDisplayFileContents_nonNumericArg() {
+    void testDisplayFileContents_nonNumericArg() throws IOException {
         when(mockFileHandler.listFiles())
-                .thenReturn(Arrays.asList("filea.txt"));
+                .thenReturn(List.of("filea.txt"));
 
         String result = programControl.displayFileContents("abc", null);
 
@@ -114,7 +115,7 @@ class ProgramControlTest {
 
     // TEST 6: displayFileContents() with custom cipher key
     @Test
-    void testDisplayFileContents_withCustomKey() {
+    void testDisplayFileContents_withCustomKey() throws IOException {
         List<String> files = Arrays.asList("filea.txt", "fileb.txt");
         when(mockFileHandler.listFiles()).thenReturn(files);
         when(mockFileHandler.readFile("filea.txt")).thenReturn("ciphered data");
@@ -129,8 +130,8 @@ class ProgramControlTest {
 
     // TEST 7: displayFileContents() with missing file
     @Test
-    void testDisplayFileContents_fileHandlerThrows() {
-        List<String> files = Arrays.asList("filea.txt");
+    void testDisplayFileContents_fileHandlerThrows() throws IOException {
+        List<String> files = List.of("filea.txt");
         when(mockFileHandler.listFiles()).thenReturn(files);
         when(mockFileHandler.readFile("filea.txt"))
                 .thenThrow(new RuntimeException("File not found"));
@@ -142,8 +143,8 @@ class ProgramControlTest {
     }
     // TEST 8: displayFileContents() with cipher failure
     @Test
-    void testDisplayFileContents_cipherServiceThrows() {
-        List<String> files = Arrays.asList("filea.txt");
+    void testDisplayFileContents_cipherServiceThrows() throws IOException {
+        List<String> files = List.of("filea.txt");
         when(mockFileHandler.listFiles()).thenReturn(files);
         when(mockFileHandler.readFile("filea.txt")).thenReturn("ciphered data");
         when(mockCipherService.decipher("ciphered data"))
