@@ -1,5 +1,3 @@
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,6 +9,7 @@ public class Cipher {
     // cipher = encrypted characters
     private String plain;
     private String cipher;
+    private FileHandler fh;
 
     // When we create a Cipher object,
     // automatically load the default key
@@ -22,7 +21,7 @@ public class Cipher {
     private void loadKey(String keyPath) {
         try {
             // Read all lines from the file
-            FileHandler fh = new FileHandler("");
+            fh = new FileHandler("");
             List<String> lines = fh.readFileLines(keyPath);
 
             // Remove any empty lines just in case
@@ -59,7 +58,8 @@ public class Cipher {
     // Decipher using a custom key file
     public String decipher(String text, String keyPath) {
         try {
-            List<String> lines = Files.readAllLines(Path.of(keyPath));
+            fh = new FileHandler("");
+            List<String> lines = fh.readFileLines(keyPath);
 
             lines = lines.stream()
                     .filter(line -> !line.trim().isEmpty())

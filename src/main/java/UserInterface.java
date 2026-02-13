@@ -23,7 +23,7 @@ public class UserInterface{
 
     private static String helpGuide() { //help guide method
         return "--- File Portal Help ---\n" +
-                "Usage: java topsecret {file_number} {optional_key}\n" +
+                "Usage: java TopSecret {file_number} {optional_key}\n" +
                 "Commands:\n" +
                 "no args: List all available files\n" +
                 "{file_number}: View contents of a specific file\n" +
