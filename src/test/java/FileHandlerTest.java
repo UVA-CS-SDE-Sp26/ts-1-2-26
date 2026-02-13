@@ -14,7 +14,7 @@ class FileHandlerTest {
     Path tempDir;
 
     @Test
-    void readFile_returnsFileContents() throws IOException {
+    void testReadFile_returnsFileContents() throws IOException {
         Path file = tempDir.resolve("test.txt");
         Files.writeString(file, "Hello World");
 
@@ -26,7 +26,7 @@ class FileHandlerTest {
     }
 
     @Test
-    void readFile_throwsException_whenFileDoesNotExist() {
+    void testReadFile_throwsException_whenFileDoesNotExist() {
         FileHandler handler = new FileHandler(tempDir.toString());
 
         assertThrows(IOException.class, () ->
@@ -34,7 +34,7 @@ class FileHandlerTest {
     }
 
     @Test
-    void readFile_returnsEmptyString_forEmptyFile() throws IOException {
+    void testReadFile_returnsEmptyString_forEmptyFile() throws IOException {
         Path file = tempDir.resolve("empty.txt");
         Files.createFile(file);
 
@@ -45,7 +45,7 @@ class FileHandlerTest {
     }
 
     @Test
-    void readFileLines_returnsAllLines() throws IOException {
+    void testReadFileLines_returnsAllLines() throws IOException {
         Path file = tempDir.resolve("lines.txt");
         Files.write(file, List.of("Line1", "Line2", "Line3"));
 
@@ -59,7 +59,7 @@ class FileHandlerTest {
     }
 
     @Test
-    void listFiles_returnsOnlyTxtFiles_sorted() throws IOException {
+    void testListFiles_returnsOnlyTxtFiles_sorted() throws IOException {
         Files.writeString(tempDir.resolve("b.txt"), "B");
         Files.writeString(tempDir.resolve("a.txt"), "A");
         Files.writeString(tempDir.resolve("ignore.md"), "ignore");
@@ -72,7 +72,7 @@ class FileHandlerTest {
     }
 
     @Test
-    void listFiles_returnsEmptyList_whenNoTxtFiles() throws IOException {
+    void testListFiles_returnsEmptyList_whenNoTxtFiles() throws IOException {
         Files.writeString(tempDir.resolve("file.md"), "markdown");
 
         FileHandler handler = new FileHandler(tempDir.toString());
