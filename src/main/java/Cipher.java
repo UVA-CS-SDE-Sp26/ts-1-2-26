@@ -22,7 +22,8 @@ public class Cipher {
     private void loadKey(String keyPath) {
         try {
             // Read all lines from the file
-            List<String> lines = Files.readAllLines(Path.of(keyPath));
+            FileHandler fh = new FileHandler("");
+            List<String> lines = fh.readFileLines(keyPath);
 
             // Remove any empty lines just in case
             lines = lines.stream()
