@@ -5,7 +5,7 @@ public class UserInterface{
     public UserInterface(ProgramControl controller){
         this.controller = controller;
     }
-    //code provided by William
+    //code structure provide by William
     public String requestHandling(String[] args) throws IOException {
         if (args.length > 0 && (args[0].equals("-h")||args[0].equals("-help"))) {
             return helpGuide();
@@ -31,7 +31,7 @@ public class UserInterface{
                 "-h, -help : Show  help menu";
     }
 
-    private boolean isNumeric(String str) {
+    private boolean isNumeric(String str) { //method to check if int
         return str != null && str.matches("\\d+");
     }
 
