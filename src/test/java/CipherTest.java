@@ -3,55 +3,55 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CipherTest {
 
-    // Make sure creating a Cipher object does not crash
+    // Creating a Cipher object should not throw errors
     @Test
     void testConstructorLoadsDefaultKey() {
         assertDoesNotThrow(Cipher::new);
     }
 
-    // Empty string should return empty string
+    // Empty string should stay empty
     @Test
     void testEmptyStringReturnsEmpty() {
         Cipher cipher = new Cipher();
         assertEquals("", cipher.decipher(""));
     }
 
-    // Characters not in the key should stay the same
+    // Characters not in the key should remain unchanged
     @Test
     void testUnmappedCharactersRemain() {
         Cipher cipher = new Cipher();
         assertEquals("!@#", cipher.decipher("!@#"));
     }
 
-    // Basic single character mapping check
+    // Simple lowercase mapping check
     @Test
     void testSingleCharacterMapping() {
         Cipher cipher = new Cipher();
         assertEquals("a", cipher.decipher("b"));
     }
 
-    // Uppercase characters should also map correctly
+    // Uppercase letters should map correctly
     @Test
     void testUppercaseMapping() {
         Cipher cipher = new Cipher();
         assertEquals("A", cipher.decipher("B"));
     }
 
-    // Numbers should map correctly if included in key
+    // Based on professor key: 1 maps to Z
     @Test
     void testNumberMapping() {
         Cipher cipher = new Cipher();
-        assertEquals("0", cipher.decipher("1"));
+        assertEquals("Z", cipher.decipher("1"));
     }
 
-    // Spaces should not be removed or changed
+    // Whitespace should not change
     @Test
     void testWhitespacePreserved() {
         Cipher cipher = new Cipher();
         assertEquals("a a", cipher.decipher("b b"));
     }
 
-    // Invalid alternate key path should throw an error
+    // Invalid key path should throw a RuntimeException
     @Test
     void testAlternateKeyInvalidPathThrows() {
         Cipher cipher = new Cipher();
@@ -59,7 +59,7 @@ public class CipherTest {
                 () -> cipher.decipher("test", "bad/path.txt"));
     }
 
-    // Valid alternate key should work the same as default
+    // Valid alternate key should behave like default
     @Test
     void testAlternateKeyValidPath() {
         Cipher cipher = new Cipher();
@@ -67,12 +67,12 @@ public class CipherTest {
         assertEquals("a", result);
     }
 
-    // Mixed characters (letters + numbers and punctuation)
+    // Mixed characters test (letters + numbers + punctuations)
     @Test
     void testMixedCharacters() {
         Cipher cipher = new Cipher();
         String input = "bC1!";
-        String expected = "aB0!";
+        String expected = "aBZ!";   // matches professor key
         assertEquals(expected, cipher.decipher(input));
     }
 }
