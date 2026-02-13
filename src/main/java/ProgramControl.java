@@ -3,9 +3,9 @@ public class ProgramControl{
     private FileHandler fileHandler;
     private Cipher cipher;
 
-    public ProgramControl(FileHandler fileHandler, CipherService cipherService) {
+    public ProgramControl(FileHandler fileHandler, Cipher cipherService) {
         this.fileHandler = fileHandler;
-        this.cipher = cipher;
+        this.cipher = cipherService;
     }
 //    public void run(String[] args) {
 //        String result;

@@ -7,11 +7,20 @@ import java.util.Arrays;
 import java.util.List;
 class UserInterfaceTest{
     @Test
-    public void testHelp(){
+    public void testHelpGuide(){
         ProgramControl mockPC = mock(ProgramControl.class);
         UserInterface ui = new UserInterface(mockPC); // Inject the mock
 
         String result = ui.requestHandling(new String[]{"-h"});
         assertTrue(result.contains("--- File Portal Help ---"));
+    }
+
+    @Test
+    public void testListrequest(){
+        ProgramControl mockPC = mock(ProgramControl.class);
+        UserInterface ui = new UserInterface(mockPC);
+
+        String result = ui.requestHandling();
+        assertTrue(result.contains(""));
     }
 }

@@ -7,11 +7,11 @@ public class UserInterface{
     }
 
     public static void main(String[] args){
-        println("Welcome to the file portal. All file are encrypted.");
-        println("Type -h or -help to see how to use the program.");
+        System.out.println("Welcome to the file portal. All file are encrypted.");
+        System.out.println("Type -h or -help to see how to use the program.");
 
         //instantiate classes
-        FileHandler fh = new FileHandler();
+        FileHandler fh = new FileHandler("data");
         Cipher cph = new Cipher();
         ProgramControl pc = new ProgramControl(fh,cph);
 
