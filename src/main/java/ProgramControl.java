@@ -1,11 +1,11 @@
 import java.util.List;
 public class ProgramControl{
     private FileHandler fileHandler;
-    private CipherService cipherService;
+    private Cipher cipher;
 
     public ProgramControl(FileHandler fileHandler, CipherService cipherService) {
         this.fileHandler = fileHandler;
-        this.cipherService = cipherService;
+        this.cipher = cipher;
     }
     public void run(String[] args) {
         String result;
@@ -41,9 +41,9 @@ public class ProgramControl{
             String contents = fileHandler.readFile(files.get(index));
 
             if (optionalKey != null) {
-                contents = cipherService.decipher(contents, optionalKey);
+                contents = cipher.decipher(contents, optionalKey);
             } else {
-                contents = cipherService.decipher(contents);
+                contents = cipher.decipher(contents);
             }
 
             return contents;

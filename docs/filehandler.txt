@@ -19,26 +19,28 @@ Classes:
 FileHandler
 
 Methods:
-String getFileContents(File file)
-File getFile(String filename)
-String indexToFile(int index)
+String readFile(String filename)
+List<String> readFileLines(String filename)
+List<String> listFiles()
 
 Tests:
-1. getFileContents() with invalid file
+1. readFile() with invalid file
     - Returns/throws error
 
-2. getFileContents() with valid file
+2. readFile() with valid file
     - Returns file contents as String
+    - Returns empty string for empty file
 
-3. getFile() with invalid filename
+3. readFileLines() with invalid filename
     - Returns/throws error
 
-4. getFile() with valid filename
-    - Returns correct file as File type
+4. readFileLines() with valid filename
+    - Returns correct file as list of strings
+    - Reads all lines
 
-5. indexToFile() with invalid index
-    - Returns index not found/file not found
+5. listFiles() when files exist in directory
+    - Returns only text files
+    - Returns files in sorted order
 
-6. indexToFile() with valid index
-    - Returns filename corresponding to index
-
+6. listFiles() when no files in given directory
+    - Returns empty list
