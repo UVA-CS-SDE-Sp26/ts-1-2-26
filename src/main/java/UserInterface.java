@@ -1,3 +1,4 @@
+import java.io.IOException;
 public class UserInterface{
     private ProgramControl controller;
 
@@ -5,7 +6,7 @@ public class UserInterface{
         this.controller = controller;
     }
     //code provided by William
-    public String requestHandling(String[] args){
+    public String requestHandling(String[] args) throws IOException {
         if (args.length > 0 && (args[0].equals("-h")||args[0].equals("-help"))) {
             return helpGuide();
         } else if (args.length > 2){
