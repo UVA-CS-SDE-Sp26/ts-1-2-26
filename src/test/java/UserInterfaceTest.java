@@ -16,11 +16,35 @@ class UserInterfaceTest{
     }
 
     @Test
-    public void testListrequest(){
+    public void testListRequest() {
         ProgramControl mockPC = mock(ProgramControl.class);
         UserInterface ui = new UserInterface(mockPC);
 
-        String result = ui.requestHandling();
-        assertTrue(result.contains(""));
+        when(mockPC.displayFileList()).thenReturn("01 file1.txt");
+
+        String result = ui.requestHandling(new String[]{});
+
+        assertEquals("01 file1.txt", result);
+        verify(mockPC).displayFileList();
+    }
+
+    @Test
+    public void testInvalidFileNumber() {
+        ProgramControl mockPC = mock(ProgramControl.class);
+        UserInterface ui = new UserInterface(mockPC);
+
+        String result = ui.requestHandling(new String[]{"cipher"});
+
+        assertEquals("Not a valid file number", result);
+    }
+
+    @Test
+    public void testTooManyArguments() {
+        ProgramControl mockPC = mock(ProgramControl.class);
+        UserInterface ui = new UserInterface(mockPC);
+
+        String result = ui.requestHandling(new String[]{"1", "key.txt", "N/A"});
+
+        assertEquals("Too many arguments", result);
     }
 }
