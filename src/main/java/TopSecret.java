@@ -1,16 +1,15 @@
 public class TopSecret {
     public static void main(String[] args){
         try {
-//            System.out.println("All files are encrypted");
-//            System.out.println("Rerun with -h or -help to see how to use the program");
+            System.out.println("All files are encrypted");
+            System.out.println("Rerun with -h or -help to see how to use the program");
+            System.out.println();
 
             //instantiate classes
             FileHandler fh = new FileHandler("data");
             Cipher cph = new Cipher();
             ProgramControl pc = new ProgramControl(fh, cph);
 
-//            System.out.println("All files are encrypted");
-//            System.out.println("Rerun with -h or -help to see how to use the program");
             //run program
             UserInterface ui = new UserInterface(pc);
 
