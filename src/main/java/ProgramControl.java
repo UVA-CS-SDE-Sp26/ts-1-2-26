@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.List;
 public class ProgramControl{
     private FileHandler fileHandler;
@@ -21,7 +22,7 @@ public class ProgramControl{
 //        System.out.println(result);
 //    }
 
-    public String displayFileList() {
+    public String displayFileList() throws IOException {
         List<String> files = fileHandler.listFiles();
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < files.size(); i++) {
