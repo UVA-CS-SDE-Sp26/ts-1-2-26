@@ -2,10 +2,13 @@ public class UserInterface{
     public static void main(String[] args){
         println("Welcome to the file portal. All file are encrypted.");
         println("Type -h or -help to see how to use the program.");
+
+        //instantiate classes
         FileHandler fh = new FileHandler();
         Cipher cph = new Cipher();
-
         ProgramControl controller = new ProgramControl(fh,cph);
+
+        //run program
         controller.run(args);
 
         //code provided by William
@@ -23,7 +26,8 @@ public class UserInterface{
         System.out.println(output);
     }
 
-    private String helpGuide() {
+
+    private String helpGuide() { //help guide method
         return "--- File Portal Help ---\n" +
                 "Usage: java topsecret {file_number} {optional_key}\n" +
                 "Commands:\n" +

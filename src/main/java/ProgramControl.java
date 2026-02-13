@@ -7,19 +7,19 @@ public class ProgramControl{
         this.fileHandler = fileHandler;
         this.cipher = cipher;
     }
-    public void run(String[] args) {
-        String result;
-
-        if (args.length == 0) {
-            result = displayFileList();
-        } else if (args.length == 1) {
-            result = displayFileContents(args[0], null);
-        } else {
-            result = displayFileContents(args[0], args[1]);
-        }
-
-        System.out.println(result);
-    }
+//    public void run(String[] args) {
+//        String result;
+//
+//        if (args.length == 0) {
+//            result = displayFileList();
+//        } else if (args.length == 1) {
+//            result = displayFileContents(args[0], null);
+//        } else {
+//            result = displayFileContents(args[0], args[1]);
+//        }
+//
+//        System.out.println(result);
+//    }
 
     public String displayFileList() {
         List<String> files = fileHandler.listFiles();
