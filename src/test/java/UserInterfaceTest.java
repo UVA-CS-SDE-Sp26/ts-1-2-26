@@ -1,12 +1,14 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import java.io.IOException;
+
 
 import java.util.Arrays;
 import java.util.List;
 class UserInterfaceTest{
     @Test
-    public void testHelpGuide(){
+    public void testHelpGuide() throws IOException {
         ProgramControl mockPC = mock(ProgramControl.class);
         UserInterface ui = new UserInterface(mockPC); // Inject the mock
 
@@ -15,7 +17,7 @@ class UserInterfaceTest{
     }
 
     @Test
-    public void testListRequest() {
+    public void testListRequest()  throws IOException {
         ProgramControl mockPC = mock(ProgramControl.class);
         UserInterface ui = new UserInterface(mockPC);
 
@@ -28,7 +30,7 @@ class UserInterfaceTest{
     }
 
     @Test
-    public void testInvalidFileNumber() {
+    public void testInvalidFileNumber()  throws IOException {
         ProgramControl mockPC = mock(ProgramControl.class);
         UserInterface ui = new UserInterface(mockPC);
 
@@ -38,7 +40,7 @@ class UserInterfaceTest{
     }
 
     @Test
-    public void testTooManyArguments() {
+    public void testTooManyArguments()  throws IOException {
         ProgramControl mockPC = mock(ProgramControl.class);
         UserInterface ui = new UserInterface(mockPC);
 
