@@ -1,31 +1,8 @@
 public class UserInterface{
-
     private ProgramControl controller;
 
     public UserInterface(ProgramControl controller){
         this.controller = controller;
-    }
-
-    public static void main(String[] args){
-        try {
-            System.out.println("Welcome to the file portal. All file are encrypted");
-            System.out.println("Type -h or -help to see how to use the program");
-
-            //instantiate classes
-            FileHandler fh = new FileHandler("data");
-            Cipher cph = new Cipher();
-            ProgramControl pc = new ProgramControl(fh, cph);
-
-            //run program
-            UserInterface ui = new UserInterface(pc);
-
-            String output = ui.requestHandling(args);
-            System.out.println(output);
-        } catch (RuntimeException e){
-            System.err.println("SYSTEM ERROR: " + e.getMessage());
-        } catch (Exception e) {
-            System.err.println("UNEXPECTED ERROR: " + e.getMessage());
-        }
     }
     //code provided by William
     public String requestHandling(String[] args){
@@ -40,7 +17,7 @@ public class UserInterface{
         }else if (args.length == 1) {
             return controller.displayFileContents(args[0], null);
         } else
-            return "Not a valid alternate cipher";
+            return controller.displayFileContents(args[0], args[1]);
     }
 
     private static String helpGuide() { //help guide method
