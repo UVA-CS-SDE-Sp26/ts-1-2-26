@@ -1,4 +1,11 @@
 public class UserInterface{
+
+    private ProgramControl controller;
+
+    public UserInterface(ProgramControl controller){
+        this.controller = controller;
+    }
+
     public static void main(String[] args){
         println("Welcome to the file portal. All file are encrypted.");
         println("Type -h or -help to see how to use the program.");
@@ -6,28 +13,30 @@ public class UserInterface{
         //instantiate classes
         FileHandler fh = new FileHandler();
         Cipher cph = new Cipher();
-        ProgramControl controller = new ProgramControl(fh,cph);
+        ProgramControl pc = new ProgramControl(fh,cph);
 
         //run program
-        controller.run(args);
+        UserInterface ui = new UserInterface(pc);
 
-        //code provided by William
-        String output;
-        if (args.length > 0 && (args[0].equals("-h")||args[0].equals("-help")) {
-            System.out.println(helpGuide());
+        String output = ui.requestHandling(args);
+        System.out.println(output);
+    }
+    //code provided by William
+    public String requestHandling(String[] args){
+        if (args.length > 0 && (args[0].equals("-h")||args[0].equals("-help"))) {
+            return helpGuide();
         }
         else if (args.length == 0) {
-            output = controller.displayFileList();
+            return controller.displayFileList();
         } else if (args.length == 1) {
-            output = controller.displayFileContents(args[0], null);
+            return controller.displayFileContents(args[0], null);
         } else {
-            output = controller.displayFileContents(args[0], args[1]);
+            return controller.displayFileContents(args[0], args[1]);
         }
-        System.out.println(output);
     }
 
 
-    private String helpGuide() { //help guide method
+    private static String helpGuide() { //help guide method
         return "--- File Portal Help ---\n" +
                 "Usage: java topsecret {file_number} {optional_key}\n" +
                 "Commands:\n" +
