@@ -1,8 +1,9 @@
 Tests:
-1. If no args with populated file list, print whole list
-2. If no args with non-populated file list, show no list found error
-3. If 1 args with a valid number, show file with default cipher
-4. If 1 args with a non-valid number, show file not found error
-5. If 2 args with a valid number and cipher, show file with inclduded cipher
-5. If 2 args with a non-valid number and cipher, show file not found error
-6. If 2 args with a valid number and non-valid cipher, show file but with incorrect decryption
+
+testHelpGuide() - test input of -h which shows help guide
+
+testListRequest() - test of display file list
+
+testInvalidFileNumber() - test if first args is not a valid int
+
+testTooManyArguments() - tests if there is more than 2 args

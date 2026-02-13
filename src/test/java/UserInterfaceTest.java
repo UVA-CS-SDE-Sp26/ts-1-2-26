@@ -10,7 +10,7 @@ class UserInterfaceTest{
     @Test
     public void testHelpGuide() throws IOException {
         ProgramControl mockPC = mock(ProgramControl.class);
-        UserInterface ui = new UserInterface(mockPC); // Inject the mock
+        UserInterface ui = new UserInterface(mockPC);
 
         String result = ui.requestHandling(new String[]{"-h"});
         assertTrue(result.contains("--- File Portal Help ---"));
