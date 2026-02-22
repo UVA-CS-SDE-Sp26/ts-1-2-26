@@ -1,0 +1,200 @@
+UML plan for HW3
+
+================================================================================
+EXISTING CLASSES
+================================================================================
+
+TopSecret
+————————
+(no fields)
+______________
++ main(args: String[]): void
+
+
+UserInterface ***UPDATED FOR HW3 (Member D)
+————————
+- controller: ProgramControl
+- searchService: SearchService
+______________
++ UserInterface(controller: ProgramControl, searchService: SearchService)
++ requestHandling(args: String[]): String
++ showMenu(): void
++ handleMenuInput(input: String): void
+- helpGuide(): String
+- isNumeric(str: String): boolean
+
+
+ProgramControl ***UPDATED FOR HW3 (Member D)
+————————
+- fileHandler: FileHandler
+- cipher: Cipher
+- databaseManager: DatabaseManager
+______________
++ ProgramControl(fileHandler: FileHandler, cipherService: Cipher, db: DatabaseManager)
++ displayFileList(): String
++ displayFileContents(fileId: String, optionalKey: String): String
++ listMissions(): List<MissionRecord>
++ getMission(id: int): MissionRecord
+
+
+FileHandler
+————————
+- rootDir: String
+______________
++ FileHandler(rootDir: String)
++ readFile(filename: String): String
++ readFileLines(filename: String): List<String>
++ listFiles(): List<String>
+
+
+Cipher
+————————
+- plain: String
+- cipher: String
+- fh: FileHandler
+______________
++ Cipher()
+- loadKey(keyPath: String): void
++ decipher(text: String): String
++ decipher(text: String, keyPath: String): String
+- decipherWithKey(text: String, plainKey: String, cipherKey: String): String
++ encipher(text: String): String
+
+
+================================================================================
+NEW CLASSES
+================================================================================
+
+MissionRecord  [Team Member A]
+————————
+- id: int
+- title: String
+- brief: String
+- date: String
+______________
++ MissionRecord(id: int, title: String, brief: String, date: String)
++ getId(): int
++ getTitle(): String
++ getBrief(): String
++ getDate(): String
+
+
+DatabaseManager  [Team Member A]
+————————
+- connectionUrl: String
+______________
++ DatabaseManager(dbPath: String)
++ initTable(): void
++ saveMission(record: MissionRecord): void
++ getAllMissions(): List<MissionRecord>
++ getMissionById(id: int): MissionRecord
++ importFromTSV(tsvPath: String): void
+
+
+CredentialManager  [Team Member B]
+————————
+- credentialFilePath: String
+- cipher: Cipher
+- fileHandler: FileHandler
+______________
++ CredentialManager(filePath: String, cipher: Cipher, fileHandler: FileHandler)
++ credentialFileExists(): boolean
++ createCredentials(username: String, password: String): void
++ verifyCredentials(username: String, password: String): boolean
++ changePassword(username: String, oldPassword: String, newPassword: String): boolean
+- isValidUsername(username: String): boolean
+- isValidPassword(password: String): boolean
+
+
+SearchService  [Team Member C]
+————————
+- databaseManager: DatabaseManager
+______________
++ SearchService(databaseManager: DatabaseManager)
++ search(phrase: String): List<MissionRecord>
+
+
+================================================================================
+RELATIONSHIPS
+================================================================================
+
+TopSecret --> CredentialManager
+  - creates new CredentialManager(filePath, cipher, fileHandler)
+  - calls credentialManager.credentialFileExists()
+  - calls credentialManager.createCredentials(username, password)    [if no file found]
+  - calls credentialManager.verifyCredentials(username, password)    [if file found]
+  - calls credentialManager.changePassword(...)                      [if -cp flag passed]
+
+TopSecret --> DatabaseManager
+  - creates new DatabaseManager(dbPath)
+  - calls databaseManager.initTable()
+
+TopSecret --> UserInterface
+  - creates new UserInterface(pc, searchService)
+  - calls ui.requestHandling(args)
+
+TopSecret --> ProgramControl
+  - creates new ProgramControl(fh, cph, db)
+
+TopSecret --> SearchService
+  - creates new SearchService(databaseManager)
+
+TopSecret --> FileHandler
+  - creates new FileHandler("data")
+
+TopSecret --> Cipher
+  - creates new Cipher()
+
+UserInterface --> ProgramControl
+  - calls controller.displayFileList()
+  - calls controller.displayFileContents(fileId, optionalKey)
+  - calls controller.listMissions()
+  - calls controller.getMission(id)
+
+UserInterface --> SearchService
+  - calls searchService.search(phrase)
+
+ProgramControl --> FileHandler
+  - calls fileHandler.listFiles()
+  - calls fileHandler.readFile(filename)
+
+ProgramControl --> Cipher
+  - calls cipher.decipher(contents)
+  - calls cipher.decipher(contents, optionalKey)
+
+ProgramControl --> DatabaseManager
+  - calls databaseManager.getAllMissions()
+  - calls databaseManager.getMissionById(id)
+
+SearchService --> DatabaseManager
+  - calls databaseManager.getAllMissions()
+
+CredentialManager --> Cipher
+  - calls cipher.encipher(plainText)    [when saving credentials]
+  - calls cipher.decipher(cipheredText) [when reading credentials]
+
+CredentialManager --> FileHandler
+  - calls fileHandler.readFile(credentialFilePath)
+  - calls fileHandler.readFileLines(credentialFilePath)
+
+Cipher --> FileHandler
+  - creates new FileHandler("") internally
+  - calls fh.readFileLines(keyPath) to load key files
+
+DatabaseManager --> MissionRecord
+  - creates MissionRecord objects from database rows
+  - reads fields from MissionRecord when saving
+
+
+================================================================================
+DATABASE SCHEMA  [Team Member A - document in project docs]
+================================================================================
+
+Table: missions
+——————————————————————————————
+id     INTEGER  PRIMARY KEY AUTOINCREMENT
+title  TEXT     NOT NULL
+brief  TEXT     NOT NULL
+date   TEXT     NOT NULL
+
+================================================================================
